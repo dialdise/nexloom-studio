@@ -8,7 +8,7 @@ const NX = (() => {
   // ── AUTH ────────────────────────────────────────────────────
   const AUTH_KEY  = 'nx_auth';
   const AUTH_PASS = 'nexloom2025';       // change before going live
-  const PRIVATE   = ['dashboard.html', 'dashboard'];
+  const PRIVATE   = ['dashboard.html'];  // unlisted — access only via direct URL
 
   function isPrivatePage() {
     const path = location.pathname.split('/').pop() || 'index.html';
