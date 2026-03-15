@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexloom Studio — Login</title>
+<link rel="stylesheet" href="nexloom.css">
+<style>
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+
+.login-wrap { width: 100%; max-width: 420px; padding: 0 24px; position: relative; z-index: 1; }
+
+.login-logo { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+.login-logo .nex { color: var(--accent); }
+.login-logo .loom { color: var(--fg); }
+
+.login-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+.login-sub::before { content: ''; display: block; width: 24px; height: 2px; background: var(--accent); }
+
+.login-card { background: var(--bg2); border: var(--bw) solid var(--border); padding: 36px; }
+
+.login-card h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; margin-bottom: 6px; }
+.login-card p { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+.field-group { margin-bottom: 20px; }
+.field-group label { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.field-group input {
+  width: 100%; background: var(--bg3); border: var(--bw) solid var(--border);
+  padding: 13px 16px; color: var(--fg); font-family: var(--font-display);
+  font-size: 16px; outline: none; transition: border-color 0.1s;
+  letter-spacing: 0.05em;
+}
+.field-group input:focus { border-color: var(--accent); }
+.field-group input::placeholder { color: var(--muted); letter-spacing: 0; }
+
+.login-btn {
+  width: 100%; padding: 14px; background: var(--accent); color: var(--accent-fg);
+  border: none; font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  transition: opacity 0.1s; margin-top: 4px;
+}
+.login-btn:hover { opacity: 0.88; }
+.login-btn:active { transform: scale(0.99); }
+
+.login-error { font-family: var(--font-mono); font-size: 11px; color: var(--red); margin-top: 10px; display: none; }
+.login-error.show { display: block; }
+
+.back-link { display: block; text-align: center; margin-top: 20px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; }
+.back-link:hover { color: var(--accent); }
+
+.login-meta { margin-top: 32px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.login-meta-item { font-family: var(--font-mono); font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.login-meta-item::before { content: ''; width: 6px; height: 6px; background: var(--accent); display: block; }
+
+/* Animated accent border */
+.login-card { position: relative; overflow: hidden; }
+.login-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.login-card:focus-within::after { transform: scaleX(1); }
+</style>
+</head>
+<body>
+<div id="nx-cursor" class="cursor"></div>
+
+<div class="login-wrap">
+  <div class="login-logo"><span class="nex">NEX</span><span class="loom">LOOM</span></div>
+  <div class="login-sub">Studio OS · Owner access</div>
+
+  <div class="login-card">
+    <h2>Sign in</h2>
+    <p>This area is private. Enter your studio password to access the dashboard.</p>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="field-group">
+        <label for="password">Studio password</label>
+        <input type="password" id="password" placeholder="Enter password" autocomplete="current-password" required autofocus>
+      </div>
+      <button type="submit" class="login-btn">Enter studio →</button>
+      <div class="login-error" id="login-error">Incorrect password. Try again.</div>
+    </form>
+  </div>
+
+  <a href="index.html" class="back-link">← Back to public site</a>
+
+  <div class="login-meta">
+    <div class="login-meta-item">Nexloom Studio OS v1.0</div>
+    <div class="login-meta-item">US · Latam</div>
+    <div class="login-meta-item">3 AI agents active</div>
+  </div>
+</div>
+
+<script src="nexloom.js"></script>
+<script>
+// Redirect if already authed
+if (NX.isAuthed()) location.href = 'dashboard.html';
+
+function handleLogin(e) {
+  e.preventDefault();
+  const pass = document.getElementById('password').value;
+  const err  = document.getElementById('login-error');
+  if (NX.login(pass)) {
+    location.href = 'dashboard.html';
+  } else {
+    err.classList.add('show');
+    document.getElementById('password').value = '';
+    document.getElementById('password').focus();
+    setTimeout(() => err.classList.remove('show'), 3000);
+  }
+}
+</script>
+</body>
+</html>

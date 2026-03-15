@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexloom Studio — Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090B;--bg2:#111113;--bg3:#18181B;--accent:#DFE104;--accent-fg:#000000;--fg:#FAFAFA;--muted:#71717A;--border:#3F3F46;--green:#22C55E;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;border-bottom:2px solid var(--border);background:var(--bg2)}
+.nav-logo{font-size:18px;font-weight:800;text-decoration:none}.logo-nex{color:var(--accent)}.logo-loom{color:var(--fg)}
+.page-nav{display:flex}
+.page-nav a{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 16px;border:1px solid var(--border);margin-left:-1px;transition:all 0.1s}
+.page-nav a:hover{color:var(--accent);border-color:var(--accent)}
+.page-nav a.active{color:var(--accent-fg);background:var(--accent);border-color:var(--accent)}
+
+.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 56px)}
+
+/* LEFT PANEL */
+.left-panel{background:var(--accent);padding:60px 48px;display:flex;flex-direction:column;justify-content:space-between}
+.left-eyebrow{font-family:'Fira Code',monospace;font-size:11px;color:rgba(0,0,0,0.5);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+.left-headline{font-size:clamp(48px,5vw,72px);font-weight:800;letter-spacing:-2px;line-height:0.95;color:var(--accent-fg);text-transform:uppercase;margin-bottom:32px}
+.left-sub{font-size:16px;color:rgba(0,0,0,0.6);line-height:1.6;max-width:380px;margin-bottom:48px}
+.contact-methods{display:flex;flex-direction:column;gap:0}
+.contact-method{display:flex;align-items:center;gap:16px;padding:20px 0;border-top:2px solid rgba(0,0,0,0.12)}
+.contact-method:last-child{border-bottom:2px solid rgba(0,0,0,0.12)}
+.method-label{font-family:'Fira Code',monospace;font-size:10px;color:rgba(0,0,0,0.5);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px}
+.method-val{font-size:15px;font-weight:700;color:var(--accent-fg)}
+.method-icon{width:40px;height:40px;background:rgba(0,0,0,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.method-icon svg{width:18px;height:18px}
+.audit-box{background:rgba(0,0,0,0.1);padding:24px;margin-top:auto}
+.audit-title{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent-fg);margin-bottom:8px}
+.audit-desc{font-size:13px;color:rgba(0,0,0,0.55);line-height:1.5}
+.audit-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.audit-item{font-size:13px;color:rgba(0,0,0,0.7);display:flex;gap:8px}
+.audit-item::before{content:'✓';color:var(--accent-fg);font-weight:800;flex-shrink:0}
+
+/* RIGHT PANEL — FORM */
+.right-panel{background:var(--bg);padding:60px 48px;overflow-y:auto}
+.form-header{margin-bottom:40px}
+.form-eyebrow{font-family:'Fira Code',monospace;font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
+.form-title{font-size:28px;font-weight:800;letter-spacing:-0.5px}
+
+/* STEP INDICATOR */
+.steps{display:flex;gap:0;margin-bottom:36px}
+.step-dot{display:flex;align-items:center}
+.step-circle{width:28px;height:28px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:11px;color:var(--muted);transition:all 0.2s}
+.step-circle.active{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.step-circle.done{background:var(--bg3);border-color:var(--muted);color:var(--muted)}
+.step-line{width:32px;height:2px;background:var(--border)}
+
+/* FORM PANELS */
+.form-step{display:none}
+.form-step.active{display:block}
+
+label{display:block;font-family:'Fira Code',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+input[type=text], input[type=email], input[type=tel], textarea, select{
+  width:100%;background:var(--bg2);border:2px solid var(--border);padding:12px 16px;color:var(--fg);font-family:'Space Grotesk',sans-serif;font-size:15px;outline:none;transition:border-color 0.1s;appearance:none;margin-bottom:20px}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:100px;resize:vertical}
+select option{background:var(--bg2)}
+
+/* SELECT CHIPS */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{border:2px solid var(--border);padding:8px 16px;font-family:'Fira Code',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all 0.1s;user-select:none}
+.chip:hover{border-color:var(--muted);color:var(--fg)}
+.chip.selected{border-color:var(--accent);color:var(--accent-fg);background:var(--accent)}
+
+.form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.btn-next{background:var(--accent);color:var(--accent-fg);border:none;padding:14px 32px;font-family:'Fira Code',monospace;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;width:100%;transition:opacity 0.1s;margin-top:8px}
+.btn-next:hover{opacity:0.88}
+.btn-back{background:none;border:2px solid var(--border);color:var(--muted);padding:12px 24px;font-family:'Fira Code',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.1s;margin-bottom:12px}
+.btn-back:hover{border-color:var(--muted);color:var(--fg)}
+
+/* SUCCESS */
+.success-state{display:none;text-align:center;padding:40px 0}
+.success-mark{width:64px;height:64px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:var(--accent-fg);margin:0 auto 24px}
+.success-title{font-size:28px;font-weight:800;letter-spacing:-0.5px;margin-bottom:12px;text-transform:uppercase}
+.success-sub{font-size:15px;color:var(--muted);line-height:1.6;max-width:320px;margin:0 auto}
+
+/* SOCIAL PROOF STRIP */
+.proof-strip{border-top:2px solid var(--border);padding-top:28px;margin-top:28px}
+.proof-label{font-family:'Fira Code',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px}
+.proof-items{display:flex;flex-direction:column;gap:12px}
+.proof-item{display:flex;gap:12px;align-items:flex-start}
+.proof-avatar{width:32px;height:32px;background:var(--bg3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--accent);flex-shrink:0}
+.proof-text{font-size:13px;color:var(--muted);line-height:1.5}
+.proof-text strong{color:var(--fg)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dashboard.html" class="nav-logo"><span class="logo-nex">NEX</span><span class="logo-loom">LOOM</span></a>
+  <div class="page-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="portfolio.html">Projects</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- LEFT -->
+  <div class="left-panel">
+    <div>
+      <div class="left-eyebrow">Let's work together</div>
+      <h1 class="left-headline">START<br>YOUR<br>PROJECT</h1>
+      <p class="left-sub">Book a free 30-minute audit. We'll find the 3 biggest opportunities for your business — no commitment, no pressure.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg></div>
+          <div><div class="method-label">Email</div><div class="method-val">hello@nexloomstudio.com</div></div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 012 1.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div><div class="method-label">WhatsApp</div><div class="method-val">Available on request</div></div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="method-label">Markets</div><div class="method-val">US · Latam · Remote</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="audit-box">
+      <div class="audit-title">Free 30-min audit includes:</div>
+      <div class="audit-list">
+        <div class="audit-item">Review of your current digital presence</div>
+        <div class="audit-item">Top 3 growth opportunities identified</div>
+        <div class="audit-item">Service recommendation + pricing</div>
+        <div class="audit-item">No pitch, no pressure — just value</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — FORM -->
+  <div class="right-panel">
+    <div class="form-header">
+      <div class="form-eyebrow">Contact form</div>
+      <div class="form-title">Tell us about your project</div>
+    </div>
+
+    <!-- STEPS -->
+    <div class="steps" style="margin-bottom:32px">
+      <div class="step-dot"><div class="step-circle active" id="s1">1</div></div>
+      <div class="step-line"></div>
+      <div class="step-dot"><div class="step-circle" id="s2">2</div></div>
+      <div class="step-line"></div>
+      <div class="step-dot"><div class="step-circle" id="s3">3</div></div>
+    </div>
+
+    <form id="contact-form" onsubmit="submitForm(event)">
+
+      <!-- STEP 1: Who are you -->
+      <div class="form-step active" id="step-1">
+        <div class="form-row-2">
+          <div>
+            <label for="fname">First name</label>
+            <input type="text" id="fname" placeholder="Maria" required>
+          </div>
+          <div>
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" placeholder="Rodriguez" required>
+          </div>
+        </div>
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="hello@yourbiz.com" required>
+        <label for="biz">Business name</label>
+        <input type="text" id="biz" placeholder="Your business or brand name" required>
+        <label>Your market</label>
+        <div class="chip-group" id="market-chips">
+          <div class="chip" onclick="selectChip(this,'market')">🇺🇸 United States</div>
+          <div class="chip" onclick="selectChip(this,'market')">🌎 Latin America</div>
+          <div class="chip" onclick="selectChip(this,'market')">Both markets</div>
+        </div>
+        <button type="button" class="btn-next" onclick="nextStep(2)">Next: Your project →</button>
+      </div>
+
+      <!-- STEP 2: Project details -->
+      <div class="form-step" id="step-2">
+        <label>Services you need</label>
+        <div class="chip-group" id="service-chips">
+          <div class="chip" onclick="selectChip(this,'service')">Marketing</div>
+          <div class="chip" onclick="selectChip(this,'service')">Development</div>
+          <div class="chip" onclick="selectChip(this,'service')">Design</div>
+          <div class="chip" onclick="selectChip(this,'service')">All three</div>
+          <div class="chip" onclick="selectChip(this,'service')">Not sure yet</div>
+        </div>
+        <label>Industry</label>
+        <div class="chip-group" id="industry-chips">
+          <div class="chip" onclick="selectChip(this,'industry')">Restaurant / Food</div>
+          <div class="chip" onclick="selectChip(this,'industry')">Real Estate</div>
+          <div class="chip" onclick="selectChip(this,'industry')">Professional Services</div>
+          <div class="chip" onclick="selectChip(this,'industry')">Creator / Personal Brand</div>
+          <div class="chip" onclick="selectChip(this,'industry')">Retail / Local Biz</div>
+          <div class="chip" onclick="selectChip(this,'industry')">Other</div>
+        </div>
+        <label>Preferred package</label>
+        <select id="pkg-select">
+          <option value="">I'm not sure yet</option>
+          <option>Starter — $399 one-time</option>
+          <option>Growth — $599/month</option>
+          <option>Pro — $1,800/month</option>
+          <option>Custom scope</option>
+        </select>
+        <button type="button" class="btn-back" onclick="nextStep(1)">← Back</button>
+        <button type="button" class="btn-next" onclick="nextStep(3)">Next: Tell us more →</button>
+      </div>
+
+      <!-- STEP 3: Message -->
+      <div class="form-step" id="step-3">
+        <label for="message">What's the problem you're trying to solve?</label>
+        <textarea id="message" placeholder="e.g. We have a great restaurant but no online presence. We want to attract more customers from our local area and offer a way to book online..." required></textarea>
+        <label>Timeline</label>
+        <div class="chip-group" id="timeline-chips">
+          <div class="chip" onclick="selectChip(this,'timeline')">ASAP</div>
+          <div class="chip" onclick="selectChip(this,'timeline')">Within 1 month</div>
+          <div class="chip" onclick="selectChip(this,'timeline')">1–3 months</div>
+          <div class="chip" onclick="selectChip(this,'timeline')">Exploring options</div>
+        </div>
+        <label>Preferred language</label>
+        <div class="chip-group" id="lang-chips">
+          <div class="chip selected" onclick="selectChip(this,'lang')">English</div>
+          <div class="chip" onclick="selectChip(this,'lang')">Español</div>
+          <div class="chip" onclick="selectChip(this,'lang')">Both</div>
+        </div>
+        <button type="button" class="btn-back" onclick="nextStep(2)">← Back</button>
+        <button type="submit" class="btn-next">Send message →</button>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="success">
+      <div class="success-mark">✓</div>
+      <div class="success-title">Message sent!</div>
+      <p class="success-sub">We'll review your project and reach out within 24 hours to schedule your free audit call.</p>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="proof-strip">
+      <div class="proof-label">What clients say</div>
+      <div class="proof-items">
+        <div class="proof-item">
+          <div class="proof-avatar">CF</div>
+          <div class="proof-text"><strong>"Nexloom completely transformed our online presence in one month."</strong> — Casa Fuego, Miami</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-avatar">RJ</div>
+          <div class="proof-text"><strong>"Our new website gets 3x more consultation requests."</strong> — Rodriguez Law, Houston</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-avatar">SB</div>
+          <div class="proof-text"><strong>"Finalmente alguien que entiende cómo hablarle a mi audiencia en español."</strong> — Sofía Branded, CDMX</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function selectChip(el, group) {
+  // For service + market: allow multiple; for others single
+  const multi = ['service','industry'].includes(group);
+  if(!multi) {
+    document.querySelectorAll(`#${group}-chips .chip`).forEach(c=>c.classList.remove('selected'));
+  }
+  el.classList.toggle('selected');
+}
+
+function nextStep(n) {
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  [1,2,3].forEach(i=>{
+    const c=document.getElementById('s'+i);
+    c.classList.remove('active','done');
+    if(i<n) c.classList.add('done');
+    if(i===n) c.classList.add('active');
+  });
+}
+
+function submitForm(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display='none';
+  document.getElementById('success').style.display='block';
+  document.querySelectorAll('.steps, .form-header').forEach(el=>el.style.display='none');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexloom Studio — Pricing</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090B;--bg2:#111113;--bg3:#18181B;--accent:#DFE104;--accent-fg:#000000;--fg:#FAFAFA;--muted:#71717A;--border:#3F3F46;--green:#22C55E;--blue:#3B82F6;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;border-bottom:2px solid var(--border);background:var(--bg2)}
+.nav-logo{font-size:18px;font-weight:800;text-decoration:none}.logo-nex{color:var(--accent)}.logo-loom{color:var(--fg)}
+.page-nav{display:flex}
+.page-nav a{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:6px 16px;border:1px solid var(--border);margin-left:-1px;transition:all 0.1s}
+.page-nav a:hover{color:var(--accent);border-color:var(--accent)}
+.page-nav a.active{color:var(--accent-fg);background:var(--accent);border-color:var(--accent)}
+.nav-cta{background:var(--accent);color:var(--accent-fg);font-family:'Fira Code',monospace;font-size:11px;font-weight:700;padding:8px 20px;letter-spacing:0.08em;text-decoration:none;text-transform:uppercase}
+.nav-cta:hover{opacity:0.85}
+
+.hero-strip{padding:60px 40px 48px;border-bottom:2px solid var(--border);display:flex;flex-direction:column;align-items:center;text-align:center}
+.eyebrow{font-family:'Fira Code',monospace;font-size:11px;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(48px,7vw,88px);font-weight:800;letter-spacing:-2px;line-height:0.95;text-transform:uppercase;margin-bottom:16px}
+h1 .dim{color:var(--muted)}
+.hero-sub{font-size:16px;color:var(--muted);max-width:520px;line-height:1.6;margin-bottom:32px}
+
+/* BILLING TOGGLE */
+.billing-toggle{display:flex;align-items:center;gap:16px}
+.toggle-label{font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)}
+.toggle-label.active{color:var(--fg)}
+.toggle-wrap{width:48px;height:24px;background:var(--bg3);border:2px solid var(--border);position:relative;cursor:pointer}
+.toggle-knob{width:16px;height:16px;background:var(--accent);position:absolute;top:2px;left:2px;transition:transform 0.15s}
+.toggle-wrap.annual .toggle-knob{transform:translateX(24px)}
+.save-badge{font-family:'Fira Code',monospace;font-size:10px;background:var(--accent);color:var(--accent-fg);padding:2px 8px;font-weight:700}
+
+/* PRICING CARDS */
+.pricing-section{padding:48px 40px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px}
+.pkg{background:var(--bg2);border:2px solid var(--border);padding:36px 32px;position:relative;transition:border-color 0.1s}
+.pkg:hover{border-color:var(--muted)}
+.pkg.featured{border-color:var(--accent)}
+.pkg-badge{position:absolute;top:-2px;right:-2px;background:var(--accent);color:var(--accent-fg);font-family:'Fira Code',monospace;font-size:10px;font-weight:700;padding:4px 14px;letter-spacing:0.08em}
+.pkg-tier{font-family:'Fira Code',monospace;font-size:11px;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
+.pkg-price{font-size:56px;font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.pkg-price .per{font-size:18px;font-weight:500;color:var(--muted)}
+.pkg-period{font-family:'Fira Code',monospace;font-size:11px;color:var(--muted);margin-bottom:28px}
+.pkg-divider{height:2px;background:var(--border);margin-bottom:24px}
+.pkg-feature{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);padding:7px 0;border-bottom:1px solid rgba(63,63,70,0.3);line-height:1.4}
+.pkg-feature:last-of-type{border-bottom:none}
+.pkg-feature::before{content:'→';color:var(--accent);flex-shrink:0;font-weight:700;margin-top:1px}
+.pkg-feature strong{color:var(--fg)}
+.pkg-cta{display:block;width:100%;text-align:center;margin-top:28px;padding:14px;font-family:'Fira Code',monospace;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.1s;cursor:pointer;border:none}
+.pkg-cta-ghost{border:2px solid var(--border);color:var(--fg);background:none}
+.pkg-cta-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.pkg-cta-solid{background:var(--accent);color:var(--accent-fg)}
+.pkg-cta-solid:hover{opacity:0.88}
+
+/* COMPARISON TABLE */
+.compare-wrap{margin-top:2px;overflow-x:auto}
+.compare-toggle{display:flex;align-items:center;gap:12px;margin-bottom:16px;cursor:pointer}
+.compare-toggle-label{font-family:'Fira Code',monospace;font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase}
+.compare-arrow{font-size:12px;color:var(--accent);transition:transform 0.2s}
+.compare-arrow.open{transform:rotate(90deg)}
+table{width:100%;border-collapse:collapse;background:var(--bg2)}
+thead tr{border-bottom:2px solid var(--border)}
+th{padding:16px 20px;text-align:left;font-family:'Fira Code',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+th.featured-col{background:rgba(223,225,4,0.06);color:var(--accent)}
+td{padding:14px 20px;font-size:13px;border-bottom:1px solid rgba(63,63,70,0.3)}
+td.featured-col{background:rgba(223,225,4,0.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.row-category td{background:var(--bg3)!important;font-family:'Fira Code',monospace;font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;font-weight:500}
+.check{color:var(--green);font-weight:700}
+.cross{color:var(--muted)}
+.partial{color:var(--accent)}
+
+/* FAQ */
+.faq-section{padding:48px 40px;border-top:2px solid var(--border)}
+.faq-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:24px;font-family:'Fira Code',monospace}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.faq-item{background:var(--bg2);border:2px solid var(--border);padding:24px}
+.faq-q{font-size:15px;font-weight:700;margin-bottom:10px;letter-spacing:-0.2px}
+.faq-a{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* BOTTOM CTA */
+.bottom-cta{background:var(--accent);padding:60px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.cta-headline{font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;line-height:1.05;color:var(--accent-fg);text-transform:uppercase}
+.cta-btn{background:var(--accent-fg);color:var(--accent);font-family:'Fira Code',monospace;font-size:13px;font-weight:700;padding:14px 32px;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
+.cta-btn:hover{opacity:0.85}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dashboard.html" class="nav-logo"><span class="logo-nex">NEX</span><span class="logo-loom">LOOM</span></a>
+  <div class="page-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="portfolio.html">Projects</a>
+    <a href="pricing.html" class="active">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="contact.html" class="nav-cta">Get started</a>
+</nav>
+
+<div class="hero-strip">
+  <div class="eyebrow">Transparent pricing</div>
+  <h1>NO<br><span class="dim">SURPRISES</span></h1>
+  <p class="hero-sub">Agency-quality results at freelancer prices. Pick a package or mix services. All plans include bilingual EN/ES delivery.</p>
+
+  <div class="billing-toggle">
+    <span class="toggle-label active" id="monthly-label">Monthly</span>
+    <div class="toggle-wrap" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-knob"></div>
+    </div>
+    <span class="toggle-label" id="annual-label">Annual</span>
+    <span class="save-badge" id="save-badge" style="display:none">SAVE 20%</span>
+  </div>
+</div>
+
+<div class="pricing-section">
+  <div class="pricing-grid">
+
+    <!-- STARTER -->
+    <div class="pkg">
+      <div class="pkg-tier">Starter</div>
+      <div class="pkg-price" id="starter-price">$399<span class="per"></span></div>
+      <div class="pkg-period" id="starter-period">One-time · Best to launch</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature"><strong>Logo</strong> + brand color palette</div>
+      <div class="pkg-feature"><strong>1-page</strong> professional website</div>
+      <div class="pkg-feature"><strong>5</strong> ready-to-post social captions</div>
+      <div class="pkg-feature">Google Business profile setup</div>
+      <div class="pkg-feature">Delivered in <strong>5 business days</strong></div>
+      <div class="pkg-feature">1 revision round included</div>
+      <a href="contact.html" class="pkg-cta pkg-cta-ghost">Get started →</a>
+    </div>
+
+    <!-- GROWTH - FEATURED -->
+    <div class="pkg featured">
+      <div class="pkg-badge">MOST POPULAR</div>
+      <div class="pkg-tier">Growth</div>
+      <div class="pkg-price" id="growth-price">$599<span class="per">/mo</span></div>
+      <div class="pkg-period" id="growth-period">Monthly retainer · Best for scaling</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature"><strong>12</strong> social posts/month (EN + ES)</div>
+      <div class="pkg-feature"><strong>2</strong> email campaigns per month</div>
+      <div class="pkg-feature">Website updates &amp; maintenance</div>
+      <div class="pkg-feature">Monthly performance report</div>
+      <div class="pkg-feature">Priority response <strong>within 24h</strong></div>
+      <div class="pkg-feature"><strong>1</strong> design asset per month</div>
+      <div class="pkg-feature">Dedicated ARIA marketing agent</div>
+      <a href="contact.html" class="pkg-cta pkg-cta-solid">Start growing →</a>
+    </div>
+
+    <!-- PRO -->
+    <div class="pkg">
+      <div class="pkg-tier">Pro</div>
+      <div class="pkg-price" id="pro-price">$1,800<span class="per">/mo</span></div>
+      <div class="pkg-period" id="pro-period">Full-stack · Best for fast growth</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature">Everything in <strong>Growth</strong></div>
+      <div class="pkg-feature">Custom web app or automation</div>
+      <div class="pkg-feature">Full brand system + design library</div>
+      <div class="pkg-feature">Meta &amp; Google <strong>Ads management</strong></div>
+      <div class="pkg-feature">Weekly strategy calls</div>
+      <div class="pkg-feature">Dedicated Slack channel</div>
+      <div class="pkg-feature">All 3 AI agents: ARIA, DEVX, LUMA</div>
+      <a href="contact.html" class="pkg-cta pkg-cta-ghost">Let's talk →</a>
+    </div>
+
+  </div><!-- /pricing-grid -->
+
+  <!-- COMPARE TABLE TOGGLE -->
+  <div style="margin-top:32px">
+    <div class="compare-toggle" onclick="toggleCompare()">
+      <span class="compare-arrow" id="compare-arrow">▶</span>
+      <span class="compare-toggle-label">Full feature comparison</span>
+    </div>
+
+    <div id="compare-table" style="display:none">
+      <div class="compare-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:36%">Feature</th>
+              <th>Starter</th>
+              <th class="featured-col">Growth</th>
+              <th>Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-category"><td colspan="4">Marketing</td></tr>
+            <tr><td>Social posts / month</td><td>5 (one-time)</td><td class="featured-col partial">12 posts</td><td>20+ posts</td></tr>
+            <tr><td>Email campaigns</td><td class="cross">—</td><td class="featured-col partial">2 / month</td><td>4 / month</td></tr>
+            <tr><td>Bilingual EN + ES</td><td class="check">✓</td><td class="featured-col check">✓</td><td class="check">✓</td></tr>
+            <tr><td>Ad management (Meta/Google)</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">✓</td></tr>
+            <tr><td>Monthly analytics report</td><td class="cross">—</td><td class="featured-col check">✓</td><td class="check">✓</td></tr>
+            <tr class="row-category"><td colspan="4">Development</td></tr>
+            <tr><td>Website</td><td>1-page</td><td class="featured-col partial">Updates only</td><td>Full custom</td></tr>
+            <tr><td>Web app / automation</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">✓</td></tr>
+            <tr><td>API integrations</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">✓</td></tr>
+            <tr class="row-category"><td colspan="4">Design</td></tr>
+            <tr><td>Logo + brand colors</td><td class="check">✓</td><td class="featured-col partial">1 asset/mo</td><td class="check">✓ full system</td></tr>
+            <tr><td>Full brand system</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">✓</td></tr>
+            <tr class="row-category"><td colspan="4">Support</td></tr>
+            <tr><td>Response time</td><td>5 days</td><td class="featured-col partial">24 hours</td><td>4 hours</td></tr>
+            <tr><td>Strategy calls</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">Weekly</td></tr>
+            <tr><td>Dedicated Slack</td><td class="cross">—</td><td class="featured-col cross">—</td><td class="check">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section" style="padding-left:0;padding-right:0">
+    <div class="faq-title">Common questions</div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-q">How fast do you deliver?</div>
+        <div class="faq-a">Starter projects in 5 business days. Monthly retainer deliverables follow a weekly schedule. We show you a calendar on day 1 so you always know what's coming.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you work in Spanish?</div>
+        <div class="faq-a">Yes — natively, not translated. All content is written in neutral Latin American Spanish by someone who actually speaks it. No awkward phrasing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I upgrade or cancel anytime?</div>
+        <div class="faq-a">Yes. Monthly plans are month-to-month. Upgrade anytime and we'll prorate. Cancel with 14 days notice — no penalties, no retention calls.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I only need one service?</div>
+        <div class="faq-a">All packages can be scoped to a single service. If you only need dev work, we price accordingly. Book a free call and we'll quote exactly what you need.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /pricing-section -->
+
+<div class="bottom-cta">
+  <div class="cta-headline">NOT SURE<br>WHERE TO START?</div>
+  <a href="contact.html" class="cta-btn">Book a free 30-min audit →</a>
+</div>
+
+<script>
+let isAnnual = false;
+const prices = {
+  starter: { monthly: '$399', annual: '$319', period_m: 'One-time · Best to launch', period_a: 'One-time · Billed annually' },
+  growth: { monthly: '$599', annual: '$479', period_m: 'Monthly retainer · Best for scaling', period_a: 'Per month · Billed annually' },
+  pro: { monthly: '$1,800', annual: '$1,440', period_m: 'Full-stack · Best for fast growth', period_a: 'Per month · Billed annually' }
+};
+function toggleBilling() {
+  isAnnual = !isAnnual;
+  document.getElementById('billing-toggle').classList.toggle('annual', isAnnual);
+  document.getElementById('monthly-label').classList.toggle('active', !isAnnual);
+  document.getElementById('annual-label').classList.toggle('active', isAnnual);
+  document.getElementById('save-badge').style.display = isAnnual ? 'inline-block' : 'none';
+  const mode = isAnnual ? 'annual' : 'monthly';
+  ['starter','growth','pro'].forEach(p => {
+    const priceEl = document.getElementById(p+'-price');
+    const perEl = priceEl.querySelector('.per');
+    const per = p==='starter' ? '' : '/mo';
+    priceEl.childNodes[0].nodeValue = prices[p][mode];
+    if(perEl) perEl.textContent = per;
+    document.getElementById(p+'-period').textContent = prices[p]['period_'+mode[0]];
+  });
+}
+function toggleCompare() {
+  const table = document.getElementById('compare-table');
+  const arrow = document.getElementById('compare-arrow');
+  const isOpen = table.style.display !== 'none';
+  table.style.display = isOpen ? 'none' : 'block';
+  arrow.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>

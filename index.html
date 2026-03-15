@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexloom Studio — AI-Powered Creative Agency</title>
+<meta name="description" content="AI-powered marketing, development, and design for small businesses in the US and Latin America.">
+<link rel="stylesheet" href="nexloom.css">
+<style>
+/* Page-specific styles only */
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--nav-h) + 60px) var(--page-pad) 80px; max-width: 1200px; margin: 0 auto; }
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.service-card { background: var(--bg2); border: var(--bw) solid var(--border); padding: 36px 32px; transition: border-color 0.1s; cursor: default; position: relative; overflow: hidden; }
+.service-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+.service-card:hover { border-color: rgba(223,225,4,0.3); }
+.service-card:hover::after { width: 100%; }
+.svc-num { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 24px; }
+.svc-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+.svc-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+.packages-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.pkg { background: var(--bg2); border: var(--bw) solid var(--border); padding: 36px 32px; position: relative; transition: border-color 0.1s; }
+.pkg:hover { border-color: var(--muted); }
+.pkg.featured { border-color: var(--accent); background: rgba(223,225,4,0.02); }
+.pkg-badge { position: absolute; top: -2px; right: -2px; background: var(--accent); color: var(--accent-fg); font-family: var(--font-mono); font-size: 10px; font-weight: 700; padding: 4px 14px; letter-spacing: 0.08em; }
+.pkg-tier { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+.pkg-price { font-size: 52px; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+.pkg-price .per { font-size: 18px; font-weight: 500; color: var(--muted); }
+.pkg-period { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-bottom: 28px; }
+.pkg-divider { height: 2px; background: var(--border); margin-bottom: 20px; }
+.pkg-feat { display: flex; gap: 10px; font-size: 13px; color: var(--muted); padding: 7px 0; border-bottom: 1px solid rgba(63,63,70,0.3); line-height: 1.4; }
+.pkg-feat:last-of-type { border-bottom: none; }
+.pkg-feat::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.pkg-feat strong { color: var(--fg); }
+.steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; }
+.steps-grid::before { content: ''; position: absolute; top: 27px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(223,225,4,0.4), transparent); }
+.step { padding: 0 20px; text-align: center; }
+.step-num { width: 54px; height: 54px; border: 2px solid rgba(223,225,4,0.3); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin: 0 auto 20px; background: var(--bg2); }
+.step-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 8px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.niches-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; }
+.niche { background: var(--bg2); border: var(--bw) solid var(--border); padding: 20px 16px; text-align: center; transition: border-color 0.1s; }
+.niche:hover { border-color: rgba(223,225,4,0.3); }
+.niche-icon { font-size: 22px; margin-bottom: 8px; }
+.niche-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.niche-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.markets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.bottom-cta { background: var(--accent); padding: 80px var(--page-pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.cta-head { font-size: clamp(28px,5vw,52px); font-weight: 800; letter-spacing: -1px; line-height: 1; text-transform: uppercase; color: var(--accent-fg); }
+section.pad { padding: 100px var(--page-pad); max-width: 1200px; margin: 0 auto; }
+.section-divider { height: var(--bw); background: var(--border); }
+@media(max-width:900px){ .services-grid,.packages-grid,.steps-grid,.niches-grid,.markets-grid{ grid-template-columns:1fr; } .steps-grid::before{display:none} }
+</style>
+</head>
+<body>
+<div id="nx-cursor" class="cursor"></div>
+
+<!-- PUBLIC NAV -->
+<nav class="pub-nav">
+  <a href="index.html" class="nav-logo"><span class="nex">NEX</span><span class="loom">LOOM</span></a>
+  <div class="pub-nav-links">
+    <a href="portfolio.html" data-page="portfolio" data-en="Projects" data-es="Proyectos">Projects</a>
+    <a href="pricing.html" data-page="pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+    <a href="contact.html" data-page="contact" data-en="Contact" data-es="Contacto">Contact</a>
+    <a href="login.html" data-page="login" data-en="Owner login" data-es="Acceso">Owner login</a>
+    <a href="contact.html" class="nav-cta-btn" data-en="Free audit" data-es="Auditoría gratis">Free audit</a>
+  </div>
+  <div class="lang-toggle">
+    <button data-lang="en" class="active">EN</button>
+    <button data-lang="es">ES</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero-section">
+  <div id="hero">
+    <p class="eyebrow fade-in" data-en="AI-POWERED CREATIVE STUDIO" data-es="ESTUDIO CREATIVO CON IA">AI-POWERED CREATIVE STUDIO</p>
+    <h1 class="display-heading fade-in" style="transition-delay:0.1s" data-en="WE MAKE<br>SMALL BIZ<br><span class='dim'>LOOK BIG.</span>" data-es="HACEMOS QUE<br>LOS NEGOCIOS<br><span class='dim'>SE VEAN GRANDES.</span>">WE MAKE<br>SMALL BIZ<br><span class="dim">LOOK BIG.</span></h1>
+    <p class="fade-in" style="font-size:18px;color:var(--muted);max-width:500px;line-height:1.7;margin:28px 0 40px;transition-delay:0.2s" data-en="<strong style='color:var(--fg)'>Marketing, dev & design</strong> — AI-powered, human-reviewed. Agency quality at freelancer prices. Bilingual US & Latam." data-es="<strong style='color:var(--fg)'>Marketing, desarrollo y diseño</strong> — IA con revisión humana. Calidad de agencia a precio de freelancer. Bilingüe."><strong style="color:var(--fg)">Marketing, dev & design</strong> — AI-powered, human-reviewed. Agency quality at freelancer prices. Bilingual US & Latam.</p>
+    <div class="fade-in" style="display:flex;gap:12px;flex-wrap:wrap;transition-delay:0.3s">
+      <a href="pricing.html" class="btn btn-primary" data-en="See packages" data-es="Ver paquetes">See packages</a>
+      <a href="contact.html" class="btn btn-ghost" data-en="Book free call" data-es="Llamada gratis">Book free call</a>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">MARKETING <span class="dot">◆</span> DEVELOPMENT <span class="dot">◆</span> DESIGN <span class="dot">◆</span> BRANDING <span class="dot">◆</span> SEO <span class="dot">◆</span> WEB APPS <span class="dot">◆</span> SOCIAL MEDIA <span class="dot">◆</span> EMAIL <span class="dot">◆</span> LOGO <span class="dot">◆</span> UI/UX <span class="dot">◆</span> EN + ES <span class="dot">◆</span></div>
+      <div class="marquee-item">MARKETING <span class="dot">◆</span> DEVELOPMENT <span class="dot">◆</span> DESIGN <span class="dot">◆</span> BRANDING <span class="dot">◆</span> SEO <span class="dot">◆</span> WEB APPS <span class="dot">◆</span> SOCIAL MEDIA <span class="dot">◆</span> EMAIL <span class="dot">◆</span> LOGO <span class="dot">◆</span> UI/UX <span class="dot">◆</span> EN + ES <span class="dot">◆</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SERVICES -->
+<section class="pad">
+  <div class="eyebrow fade-in" data-en="WHAT WE DO" data-es="QUÉ HACEMOS">WHAT WE DO</div>
+  <h2 class="section-heading fade-in" style="margin-bottom:48px" data-en="Three services.<br>All AI-powered." data-es="Tres servicios.<br>Todo con IA.">Three services.<br>All AI-powered.</h2>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="svc-num">01</div>
+      <h3 class="svc-title" data-en="Marketing" data-es="Marketing">Marketing</h3>
+      <p class="svc-desc" data-en="Content, social, email, ads, strategy — bilingual. ARIA, our AI marketing agent, creates conversion-focused work at speed." data-es="Contenido, redes, email, anuncios — bilingüe. ARIA, nuestro agente de marketing IA, crea trabajo enfocado en conversiones.">Content, social, email, ads, strategy — bilingual. ARIA, our AI marketing agent, creates conversion-focused work at speed.</p>
+      <div class="tag-row"><span class="tag">Social Media</span><span class="tag">Email</span><span class="tag">Ad Copy</span><span class="tag">SEO</span></div>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:0.1s">
+      <div class="svc-num">02</div>
+      <h3 class="svc-title" data-en="Development" data-es="Desarrollo">Development</h3>
+      <p class="svc-desc" data-en="Clean, fast websites and web apps. DEVX scopes before building — so you always know what you're getting and what it costs." data-es="Sitios web y apps rápidas y limpias. DEVX define el alcance antes de construir — para que siempre sepas qué recibirás y cuánto cuesta.">Clean, fast websites and web apps. DEVX scopes before building — so you always know what you're getting and what it costs.</p>
+      <div class="tag-row"><span class="tag">Websites</span><span class="tag">Web Apps</span><span class="tag">APIs</span><span class="tag">React</span></div>
+    </div>
+    <div class="service-card fade-in" style="transition-delay:0.2s">
+      <div class="svc-num">03</div>
+      <h3 class="svc-title" data-en="Design" data-es="Diseño">Design</h3>
+      <p class="svc-desc" data-en="Brand identity that earns trust. LUMA runs the discovery process and delivers full brand specs, typography, and visual systems." data-es="Identidad de marca que genera confianza. LUMA dirige el proceso y entrega especificaciones completas de marca, tipografía y sistemas visuales.">Brand identity that earns trust. LUMA runs the discovery process and delivers full brand specs, typography, and visual systems.</p>
+      <div class="tag-row"><span class="tag">Branding</span><span class="tag">Logo</span><span class="tag">UI/UX</span><span class="tag">Print</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PACKAGES -->
+<section style="padding:100px var(--page-pad);background:var(--bg2);border-top:var(--bw) solid var(--border);border-bottom:var(--bw) solid var(--border)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="eyebrow fade-in" data-en="PRICING" data-es="PRECIOS">PRICING</div>
+    <h2 class="section-heading fade-in" style="margin-bottom:48px" data-en="Transparent.<br>No surprises." data-es="Transparente.<br>Sin sorpresas.">Transparent.<br>No surprises.</h2>
+    <div class="packages-grid">
+      <div class="pkg fade-in">
+        <div class="pkg-tier" data-en="Starter" data-es="Inicio">Starter</div>
+        <div class="pkg-price">$399</div>
+        <div class="pkg-period" data-en="one-time · best to launch" data-es="único pago · para empezar">one-time · best to launch</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-feat" data-en="Logo + brand palette" data-es="Logo + paleta de marca">Logo + brand palette</div>
+        <div class="pkg-feat" data-en="1-page professional website" data-es="Sitio web de 1 página">1-page professional website</div>
+        <div class="pkg-feat" data-en="5 social captions (EN + ES)" data-es="5 publicaciones (EN + ES)">5 social captions (EN + ES)</div>
+        <div class="pkg-feat" data-en="Google Business setup" data-es="Configuración Google Business">Google Business setup</div>
+        <a href="contact.html" class="btn btn-ghost" style="display:block;text-align:center;margin-top:24px" data-en="Get started" data-es="Comenzar">Get started</a>
+      </div>
+      <div class="pkg featured fade-in" style="transition-delay:0.1s">
+        <div class="pkg-badge" data-en="MOST POPULAR" data-es="MÁS POPULAR">MOST POPULAR</div>
+        <div class="pkg-tier" data-en="Growth" data-es="Crecimiento">Growth</div>
+        <div class="pkg-price">$599<span class="per">/mo</span></div>
+        <div class="pkg-period" data-en="monthly retainer" data-es="retainer mensual">monthly retainer</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-feat" data-en="<strong>12</strong> social posts (EN + ES)" data-es="<strong>12</strong> publicaciones (EN + ES)"><strong>12</strong> social posts (EN + ES)</div>
+        <div class="pkg-feat" data-en="<strong>2</strong> email campaigns/month" data-es="<strong>2</strong> campañas de email/mes"><strong>2</strong> email campaigns/month</div>
+        <div class="pkg-feat" data-en="Website maintenance" data-es="Mantenimiento web">Website maintenance</div>
+        <div class="pkg-feat" data-en="Monthly analytics report" data-es="Reporte mensual">Monthly analytics report</div>
+        <div class="pkg-feat" data-en="Priority 24h response" data-es="Respuesta prioritaria 24h">Priority 24h response</div>
+        <a href="contact.html" class="btn btn-primary" style="display:block;text-align:center;margin-top:24px" data-en="Start growing" data-es="Empezar a crecer">Start growing</a>
+      </div>
+      <div class="pkg fade-in" style="transition-delay:0.2s">
+        <div class="pkg-tier">Pro</div>
+        <div class="pkg-price">$1,800<span class="per">/mo</span></div>
+        <div class="pkg-period" data-en="full-stack" data-es="full-stack">full-stack</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-feat" data-en="Everything in Growth" data-es="Todo lo de Crecimiento">Everything in Growth</div>
+        <div class="pkg-feat" data-en="Custom web app or automation" data-es="App o automatización a medida">Custom web app or automation</div>
+        <div class="pkg-feat" data-en="Full brand system" data-es="Sistema de marca completo">Full brand system</div>
+        <div class="pkg-feat" data-en="Meta & Google Ads" data-es="Gestión Meta y Google Ads">Meta & Google Ads</div>
+        <a href="contact.html" class="btn btn-ghost" style="display:block;text-align:center;margin-top:24px" data-en="Let's talk" data-es="Hablemos">Let's talk</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:20px;font-family:var(--font-mono);font-size:11px;color:var(--muted)"><a href="pricing.html" style="color:var(--accent);text-decoration:none" data-en="→ See full feature comparison" data-es="→ Ver comparación completa">→ See full feature comparison</a></p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="pad">
+  <div class="eyebrow fade-in" data-en="THE PROCESS" data-es="EL PROCESO">THE PROCESS</div>
+  <h2 class="section-heading fade-in" style="margin-bottom:60px" data-en="Delivered in days,<br>not months." data-es="Entregado en días,<br>no meses.">Delivered in days,<br>not months.</h2>
+  <div class="steps-grid">
+    <div class="step fade-in"><div class="step-num">01</div><div class="step-title" data-en="Free audit" data-es="Auditoría gratis">Free audit</div><p class="step-desc" data-en="30 min call. We identify your top 3 growth opportunities." data-es="30 min. Identificamos tus 3 mejores oportunidades de crecimiento.">30 min call. We identify your top 3 growth opportunities.</p></div>
+    <div class="step fade-in" style="transition-delay:0.1s"><div class="step-num">02</div><div class="step-title" data-en="Clear scope" data-es="Alcance claro">Clear scope</div><p class="step-desc" data-en="Written proposal — what, when, how much. No surprises." data-es="Propuesta escrita — qué, cuándo, cuánto. Sin sorpresas.">Written proposal — what, when, how much. No surprises.</p></div>
+    <div class="step fade-in" style="transition-delay:0.2s"><div class="step-num">03</div><div class="step-title" data-en="We build" data-es="Construimos">We build</div><p class="step-desc" data-en="AI agents work, you give feedback, we refine." data-es="Los agentes trabajan, tú das feedback, refinamos.">AI agents work, you give feedback, we refine.</p></div>
+    <div class="step fade-in" style="transition-delay:0.3s"><div class="step-num">04</div><div class="step-title" data-en="You grow" data-es="Creces">You grow</div><p class="step-desc" data-en="Deliverables in your inbox, results tracked monthly." data-es="Entregables en tu bandeja, resultados monitoreados mensualmente.">Deliverables in your inbox, results tracked monthly.</p></div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- NICHES -->
+<section style="padding:60px var(--page-pad);background:var(--bg2);border-top:var(--bw) solid var(--border);border-bottom:var(--bw) solid var(--border)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="eyebrow fade-in" data-en="WHO WE SERVE" data-es="A QUIÉN SERVIMOS">WHO WE SERVE</div>
+    <div class="niches-grid" style="margin-top:32px">
+      <div class="niche fade-in"><div class="niche-icon">🍽</div><div class="niche-name" data-en="Restaurants" data-es="Restaurantes">Restaurants</div><div class="niche-sub" data-en="& food biz" data-es="& negocios de comida">& food biz</div></div>
+      <div class="niche fade-in" style="transition-delay:0.05s"><div class="niche-icon">🏠</div><div class="niche-name" data-en="Real Estate" data-es="Bienes Raíces">Real Estate</div><div class="niche-sub" data-en="agents & brokers" data-es="agentes y brokers">agents & brokers</div></div>
+      <div class="niche fade-in" style="transition-delay:0.1s"><div class="niche-icon">⚖️</div><div class="niche-name" data-en="Professional" data-es="Profesionales">Professional</div><div class="niche-sub" data-en="law, finance" data-es="ley, finanzas">law, finance</div></div>
+      <div class="niche fade-in" style="transition-delay:0.15s"><div class="niche-icon">✦</div><div class="niche-name" data-en="Creators" data-es="Creadores">Creators</div><div class="niche-sub" data-en="personal brands" data-es="marcas personales">personal brands</div></div>
+      <div class="niche fade-in" style="transition-delay:0.2s"><div class="niche-icon">🏪</div><div class="niche-name" data-en="Local Biz" data-es="Negocios Locales">Local Biz</div><div class="niche-sub" data-en="& retail" data-es="& retail">& retail</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="cta-head" data-en="READY TO<br>LOOK BIGGER?" data-es="¿LISTO PARA<br>VERTE MÁS GRANDE?">READY TO<br>LOOK BIGGER?</div>
+  <a href="contact.html" class="btn" style="background:var(--accent-fg);color:var(--accent)" data-en="Book a free audit →" data-es="Reservar auditoría gratis →">Book a free audit →</a>
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:var(--bw) solid var(--border);padding:24px var(--page-pad);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--bg2)">
+  <a href="index.html" class="nav-logo" style="font-size:16px"><span class="nex">NEX</span><span class="loom">LOOM</span></a>
+  <div style="display:flex;gap:24px">
+    <a href="portfolio.html" style="font-size:13px;color:var(--muted);text-decoration:none" data-en="Projects" data-es="Proyectos">Projects</a>
+    <a href="pricing.html" style="font-size:13px;color:var(--muted);text-decoration:none" data-en="Pricing" data-es="Precios">Pricing</a>
+    <a href="contact.html" style="font-size:13px;color:var(--muted);text-decoration:none" data-en="Contact" data-es="Contacto">Contact</a>
+    <a href="login.html" style="font-size:13px;color:var(--muted);text-decoration:none" data-en="Owner" data-es="Propietario">Owner</a>
+  </div>
+  <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted)">© 2025 Nexloom Studio · US & Latam</p>
+</footer>
+
+<script src="nexloom.js"></script>
+</body>
+</html>
